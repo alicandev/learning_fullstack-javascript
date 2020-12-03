@@ -19,6 +19,7 @@
   "homepage": "https://github.com/4c3x5u/learn_full-stack-javascript#readme",
   "dependencies": {
     "@babel/node": "^7.12.6",
+    "ejs": "^3.1.5",
     "express": "^4.17.1",
     "mongodb": "^3.6.3",
     "prop-types": "^15.7.2",

@@ -1,9 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-ReactDOM.render(
+const App = (props) => (
     <h2 className="text-center">
-        Hello React with JSX!!
-    </h2>,
+        {props.headerMessage}
+    </h2>
+);
+
+App.propTypes = {
+    headerMessage: React.PropTypes.string.isRequired
+};
+
+App.defaultProps = {
+    headerMessage: 'Hello!!'
+};
+
+ReactDOM.render(
+    <App />,
     document.getElementById('root')
 );

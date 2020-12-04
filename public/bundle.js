@@ -59,11 +59,23 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	_reactDom2.default.render(_react2.default.createElement(
-	    'h2',
-	    { className: 'text-center' },
-	    'Hello React with JSX!!'
-	), document.getElementById('root'));
+	var App = function App(props) {
+	    return _react2.default.createElement(
+	        'h2',
+	        { className: 'text-center' },
+	        props.headerMessage
+	    );
+	};
+	
+	App.propTypes = {
+	    headerMessage: _react2.default.PropTypes.string.isRequired
+	};
+	
+	App.defaultProps = {
+	    headerMessage: 'Hello!!'
+	};
+	
+	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('root'));
 
 /***/ }),
 /* 1 */

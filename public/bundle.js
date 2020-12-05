@@ -57,13 +57,13 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _App = __webpack_require__(/*! ./components/App */ 187);
-	
-	var _App2 = _interopRequireDefault(_App);
-	
 	var _testData = __webpack_require__(/*! ./testData */ 189);
 	
 	var _testData2 = _interopRequireDefault(_testData);
+	
+	var _App = __webpack_require__(/*! ./components/App */ 187);
+	
+	var _App2 = _interopRequireDefault(_App);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -22826,6 +22826,10 @@
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
+	var _ContestPreview = __webpack_require__(/*! ./ContestPreview */ 190);
+	
+	var _ContestPreview2 = _interopRequireDefault(_ContestPreview);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22873,7 +22877,9 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          '...'
+	          this.props.contests.map(function (contest) {
+	            return _react2.default.createElement(_ContestPreview2.default, contest);
+	          })
 	        )
 	      );
 	    }
@@ -22926,6 +22932,44 @@
 /***/ (function(module, exports) {
 
 	module.exports = {"contests":[{"id":1,"categoryName":"Business/Company","contestName":"Cognitive Building Bricks"},{"id":2,"categoryName":"Magazine/Newsletter","contestName":"Educating people about sustainable food production"},{"id":3,"categoryName":"Software Component","contestName":"Big Data Analytics for Cash Circulation"},{"id":4,"categoryName":"Website","contestName":"Free programming books"}]}
+
+/***/ }),
+/* 190 */
+/*!******************************************!*\
+  !*** ./src/components/ContestPreview.js ***!
+  \******************************************/
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ContestPreview = function ContestPreview(contest) {
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "ContestPreview" },
+	    _react2.default.createElement(
+	      "div",
+	      null,
+	      contest.categoryName
+	    ),
+	    _react2.default.createElement(
+	      "div",
+	      null,
+	      contest.contestName
+	    )
+	  );
+	};
+	
+	exports.default = ContestPreview;
 
 /***/ })
 /******/ ]);

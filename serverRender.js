@@ -1,8 +1,18 @@
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+
+import App from './src/components/App';
+
 import axios from 'axios';
 import config from './config';
 
-axios.get(`${config.serverUrl}/api/contests`)
+const serverRender = () =>
+  axios.get(`${config.serverUrl}/api/contests`)
   .then(resp => {
-    console.log(resp.data.contests);
+    return ReactDOMServer.renderToString(
+      <App initialContests={resp.data.contest} />
+    );
   })
   .catch(console.error);
+
+export default serverRender;

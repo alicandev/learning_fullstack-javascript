@@ -15,7 +15,7 @@ class App extends React.Component {
           contests: resp.data.contests
         });
       })
-      .catch(console.error)
+      .catch(console.error);
   }
   componentWillUnmount() {
     // remove timers, listeners

@@ -67,7 +67,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	_reactDom2.default.render(_react2.default.createElement(_App2.default, { contests: _testData2.default.contests }), document.getElementById('root'));
+	_reactDom2.default.render(_react2.default.createElement(_App2.default, { contests: [] }), document.getElementById('root'));
 
 /***/ }),
 /* 1 */
@@ -22816,6 +22816,8 @@
 	  value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(/*! react */ 1);
@@ -22829,6 +22831,10 @@
 	var _ContestPreview = __webpack_require__(/*! ./ContestPreview */ 190);
 	
 	var _ContestPreview2 = _interopRequireDefault(_ContestPreview);
+	
+	var _testData = __webpack_require__(/*! ../testData.json */ 189);
+	
+	var _testData2 = _interopRequireDefault(_testData);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -22853,14 +22859,17 @@
 	    }
 	
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-	      pageHeader: 'Naming Contests'
+	      pageHeader: 'Naming Contests',
+	      contests: []
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 	
 	  _createClass(App, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      // timers, listeners
+	      this.setState({
+	        contests: _testData2.default.contests
+	      });
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
@@ -22877,8 +22886,8 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          this.props.contests.map(function (contest) {
-	            return _react2.default.createElement(_ContestPreview2.default, contest);
+	          this.state.contests.map(function (contest) {
+	            return _react2.default.createElement(_ContestPreview2.default, _extends({ key: contest.id }, contest));
 	          })
 	        )
 	      );

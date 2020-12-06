@@ -3,7 +3,7 @@ import apiRouter from './api';
 import sassMiddleware from 'node-sass-middleware';
 import path from 'path';
 import serverRender from './serverRender';
-import express from 'express';
+import express, { response } from 'express';
 
 const server = express();
 
@@ -22,7 +22,10 @@ server.get(['/', '/contest/:contestId'], (req, res) => {
         initialData
       });
     })
-    .catch(console.error);
+    .catch(error => {
+      console.log(error);
+      res.status(404).send('Bad Request');
+    });
 });
 
 server.use('/api', apiRouter);

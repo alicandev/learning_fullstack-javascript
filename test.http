@@ -1,0 +1,7 @@
+POST http://localhost:8080/api/names
+content-type: application/json
+
+{
+  "newName": "Awesome New Name",
+  "contestId": "5fcca6718cb64e70ad50cada"
+}

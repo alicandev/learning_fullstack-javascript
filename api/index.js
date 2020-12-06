@@ -1,8 +1,7 @@
-import express, { response } from 'express';
+import express from 'express';
 import { MongoClient } from 'mongodb';
 import assert from 'assert';
 import config from '../config';
-
 
 let mdb;
 MongoClient.connect(config.mongodbUri, (err, db) => {
@@ -33,8 +32,29 @@ router.get('/contests', (req, res) => {
     });
 });
 
+router.get('/names/:nameIds', (req, res) => {
+  const nameIds = req.params.nameIds.split(',').map(Number);
+  let names = {};
+// setTimeout(function() {
+  mdb
+    .collection('names')
+    .find({ id: { $in: nameIds } })
+    .each((err, name) => {
+      assert.equal(null, err);
+
+      if (!name) { //no more contests
+        res.send({ names });
+        return;
+      }
+
+      names[name.id] = name;
+    });
+// }, 4000);
+});
+
 router.get('/contests/:contestId', (req, res) => {
-  mdb.collection('contests')
+  mdb
+    .collection('contests')
     .findOne({id: Number(req.params.contestId) })
     .then(contest => res.send(contest))
     .catch(console.error);

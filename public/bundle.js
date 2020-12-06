@@ -22890,6 +22890,20 @@
 	          contests: contests
 	        });
 	      });
+	    }, _this.fetchNames = function (nameIds) {
+	      if (nameIds.length === 0) {
+	        return;
+	      }
+	      api.fetchNames(nameIds).then(function (names) {
+	        _this.setState({
+	          names: names
+	        });
+	      });
+	    }, _this.lookupName = function (nameId) {
+	      if (!_this.state.names || !_this.state.names[nameId]) {
+	        return { name: '...' };
+	      }
+	      return _this.state.names[nameId];
 	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 	
@@ -22922,7 +22936,6 @@
 	      if (this.state.currentContestId) {
 	        return this.currentContest().contestName;
 	      }
-	
 	      return 'Naming Contests';
 	    }
 	  }, {
@@ -22930,7 +22943,9 @@
 	    value: function currentContent() {
 	      if (this.state.currentContestId) {
 	        return _react2.default.createElement(_Contest2.default, _extends({
-	          contestListClick: this.fetchContestList
+	          contestListClick: this.fetchContestList,
+	          fetchNames: this.fetchNames,
+	          lookupName: this.lookupName
 	        }, this.currentContest()));
 	      }
 	      return _react2.default.createElement(_ContestList2.default, {
@@ -23269,22 +23284,107 @@
 	  }
 	
 	  _createClass(Contest, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.fetchNames(this.props.nameIds);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'Contest' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'contest-description' },
-	          this.props.description
+	          { className: 'panel panel-default' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'panel-heading' },
+	            _react2.default.createElement(
+	              'h3',
+	              { className: 'panel-title' },
+	              'Contest Description'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'panel-body' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'contest-description' },
+	              this.props.description
+	            )
+	          )
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          {
-	            className: 'home-link link',
-	            onClick: this.props.contestListClick
-	          },
+	          { className: 'panel panel-default' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'panel-heading' },
+	            _react2.default.createElement(
+	              'h3',
+	              { className: 'panel-title' },
+	              'Proposed Names'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'panel-body' },
+	            _react2.default.createElement(
+	              'ul',
+	              { className: 'list-group' },
+	              this.props.nameIds.map(function (nameId) {
+	                return _react2.default.createElement(
+	                  'li',
+	                  { key: nameId, className: 'list-group-item' },
+	                  _this2.props.lookupName(nameId).name
+	                );
+	              })
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'panel panel-info' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'panel-heading' },
+	            _react2.default.createElement(
+	              'h3',
+	              { className: 'panel-title' },
+	              'Propose a New Name'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'panel-body' },
+	            _react2.default.createElement(
+	              'form',
+	              null,
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'input-group' },
+	                _react2.default.createElement('input', { type: 'text', placeholder: 'New Name Here...', className: 'form-control' }),
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'input-group-btn' },
+	                  _react2.default.createElement(
+	                    'button',
+	                    { type: 'submit', className: 'btn btn-info' },
+	                    'Sumbit'
+	                  )
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'home-link link',
+	            onClick: this.props.contestListClick },
 	          'Contest List'
 	        )
 	      );
@@ -23296,7 +23396,10 @@
 	
 	Contest.propTypes = {
 	  description: _propTypes2.default.string.isRequired,
-	  contestListClick: _propTypes2.default.func.isRequired
+	  contestListClick: _propTypes2.default.func.isRequired,
+	  fetchNames: _propTypes2.default.func.isRequired,
+	  nameIds: _propTypes2.default.array.isRequired,
+	  lookupName: _propTypes2.default.func.isRequired
 	};
 	
 	exports.default = Contest;
@@ -23313,7 +23416,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.fetchContestList = exports.fetchContest = undefined;
+	exports.fetchNames = exports.fetchContestList = exports.fetchContest = undefined;
 	
 	var _axios = __webpack_require__(/*! axios */ 195);
 	
@@ -23330,6 +23433,12 @@
 	var fetchContestList = exports.fetchContestList = function fetchContestList() {
 	  return _axios2.default.get('/api/contests').then(function (resp) {
 	    return resp.data.contests;
+	  });
+	};
+	
+	var fetchNames = exports.fetchNames = function fetchNames(nameIds) {
+	  return _axios2.default.get('/api/names/' + nameIds.join(',')).then(function (resp) {
+	    return resp.data.names;
 	  });
 	};
 

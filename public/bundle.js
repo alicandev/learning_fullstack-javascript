@@ -23328,7 +23328,7 @@
 	};
 	
 	var fetchContestList = exports.fetchContestList = function fetchContestList() {
-	  return _axios2.default.get('/api/contests/').then(function (resp) {
+	  return _axios2.default.get('/api/contests').then(function (resp) {
 	    return resp.data.contests;
 	  });
 	};

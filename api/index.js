@@ -70,7 +70,7 @@ router.post('/names', (req, res) => {
         ).then(doc =>
           res.send({
             updatedContest: doc.value,
-            name: { _id: result.insertedId, name }
+            newName: { _id: result.insertedId, name }
           })
         )
     ).catch(error => {
